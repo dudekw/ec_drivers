@@ -46,6 +46,7 @@
 #define Pre300degpsec (0.05 * M_PI/180.0)
 #define Pre150degpsec (0.025 * M_PI/180.0)
 #define Pre75degpsec (0.0125 * M_PI/180.0)
+#define ADIS16460degpsec (0.005 * M_PI/180.0)
 
 
 class IMUDriver : public ECDriver {

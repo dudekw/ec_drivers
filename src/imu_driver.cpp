@@ -52,10 +52,9 @@ IMUDriver::~IMUDriver() {
 }
 
 bool IMUDriver::configureHook(const YAML::Node &cfg) {
-  uint16_t value = 0x2;
-  uint16_t value2 = 0x4;
-  rangeScale = Pre150degpsec;
-  
+
+  rangeScale = ADIS16460degpsec;
+
   this->addPDOEntry(&acceleration_x_pdo_);
   this->addPDOEntry(&acceleration_y_pdo_);
   this->addPDOEntry(&acceleration_z_pdo_);
@@ -64,25 +63,12 @@ bool IMUDriver::configureHook(const YAML::Node &cfg) {
   this->addPDOEntry(&rotation_z_pdo_);
   this->addPDOEntry(&control1_pdo_);
 
-  if (cfg["range"]) {
-    value = cfg["range"].as<int>();
-    if(value==1)
-      rangeScale = Pre75degpsec;
-    if(value==2)
-      rangeScale = Pre150degpsec;
-    if(value==4)
-      rangeScale = Pre300degpsec;
-  }
-
   if (cfg["frame_id"]) {
     imu_frame_id_ = cfg["frame_id"].as<std::string>();
   }else{
     imu_frame_id_ = "imu_frame";
   }
 
-  slave_->addSDOConfig(0x2205, 0, value2);
-
-  slave_->addSDOConfig(0x2206, 0, value);
 
   return true;
 }
