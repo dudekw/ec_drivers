@@ -87,10 +87,10 @@ void IMUDriver::updateInputs() {
   rx = rotation_x_pdo_.read();
   ry = rotation_y_pdo_.read();
   rz = rotation_z_pdo_.read();
-  // (value / <scale from documentation>) * <to_m/s_factor>
-  wr.linear_acceleration.x = (static_cast<double>(ax) / 3003.003003003) * 9.80665 ;
-  wr.linear_acceleration.y = (static_cast<double>(ay) / 3003.003003003) * 9.80665 ;
-  wr.linear_acceleration.z = (static_cast<double>(az) / 3003.003003003) * 9.80665 ;
+  // (value / <scale factor from doc>) * <to_m/s_factor>
+  wr.linear_acceleration.x = (static_cast<double>(ax) / ADIS16460acclFactor) * 9.80665 ;
+  wr.linear_acceleration.y = (static_cast<double>(ay) / ADIS16460acclFactor) * 9.80665 ;
+  wr.linear_acceleration.z = (static_cast<double>(az) / ADIS16460acclFactor) * 9.80665 ;
 
   wr.angular_velocity.x = static_cast<double>(rx) * rangeScale;
   wr.angular_velocity.y = static_cast<double>(ry) * rangeScale;
@@ -131,6 +131,7 @@ bool IMUDriver::setFilter(int32_t fl) {
     return true;
   }
    */
+return true;
 }
 
 bool IMUDriver::setCalib(int32_t cl) {
@@ -142,6 +143,7 @@ bool IMUDriver::setCalib(int32_t cl) {
     return true;
   }
    */
+return true;
 }
 
 char imu_name[] = "imu_driver";
